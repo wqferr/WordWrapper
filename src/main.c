@@ -18,6 +18,18 @@ char *getWord(size_t *n) {
     return w;
 }
 
+void printSolution(Word *words, int n, int *parent) {
+    int i;
+    if (parent[n] > 0)
+        printSolution(words, parent[n], parent);
+    for (i = parent[n]; i < n; i++) {
+        printf("%s", words[i].str);
+        if (i < n-1)
+            putc(' ', stdout);
+    }
+    putc('\n', stdout);
+}
+
 int main(void) {
     Word *words;
     int n, l;
@@ -25,6 +37,7 @@ int main(void) {
     int c;
     int **cost;
     int *opt;
+    int *parent;
 
     scanf("%d\n%d\n", &l, &n);
     words = malloc((n+1) * sizeof(*words));
@@ -48,26 +61,24 @@ int main(void) {
         cost[i][i] = 0;
     }
 
-    for (i = 0; i <= n; i++) {
-        for (j = 0; j <= n; j++)
-            printf("%d ", cost[i][j]);
-        printf("\n");
-    }
-
-    opt = malloc((n+1) * sizeof(opt));
+    opt = malloc((n+1) * sizeof(*opt));
+    parent = malloc((n+1) * sizeof(*parent));
     opt[0] = 0;
 
     for (j = 1; j <= n; j++) {
         opt[j] = INF;
         for (i = 0; i < j; i++) {
             c = opt[i] + cost[i][j];
-            if (c < opt[j])
+            if (c < opt[j]) {
                 opt[j] = c;
+                parent[j] = i;
+            }
         }
     }
 
-    printf("%d\n", opt[n]);
+    printSolution(words, n, parent);
 
+    free(parent);
     free(opt);
 
     for (i = 0; i <= n; i++)
