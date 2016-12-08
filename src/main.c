@@ -55,8 +55,10 @@ int main(void) {
         for (j = i+1; j <= n; j++) {
             if (cost[i][j] > l)
                 cost[i][j] = INF;
-            else
+            else {
                 cost[i][j] = l - cost[i][j];
+                cost[i][j] *= cost[i][j];
+            }
         }
         cost[i][i] = 0;
     }
