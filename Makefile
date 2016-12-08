@@ -115,9 +115,9 @@ endif
 
 valgrind:
 ifdef case
-	@valgrind $(BLD_DIR)/$(OUT) < $(I_FILE)
+	@valgrind --leak-check=full $(BLD_DIR)/$(OUT) < $(I_FILE)
 else
-	@valgrind $(BLD_DIR)/$(OUT)
+	@valgrind --leak-check=full $(BLD_DIR)/$(OUT)
 endif
 	@printf "====================\n"
 
