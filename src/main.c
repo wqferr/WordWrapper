@@ -9,15 +9,19 @@ typedef struct Word {
     size_t len;
 } Word;
 
+// Reads word from stdin
 char *getWord(size_t *n) {
     size_t b = 20 * sizeof(char);
     char *w = malloc(b);
     *n = getline(&w, &b, stdin);
+
+    // Remove '\n'
     (*n)--;
     w[*n] = '\0';
     return w;
 }
 
+// Recursively traverses parent array and prints solution
 void printSolution(Word *words, int n, int *parent) {
     int i;
     if (parent[n] > 0)
@@ -46,6 +50,7 @@ int main(void) {
     for (i = 0; i < n; i++)
         words[i].str = getWord(&words[i].len);
 
+    // Init cost matrix
     cost = malloc((n+1) * sizeof(*cost));
     for (i = 0; i <= n; i++) {
         cost[i] = malloc((n+1) * sizeof(**cost));
