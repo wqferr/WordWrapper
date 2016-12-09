@@ -22,6 +22,7 @@ void printSolution(Word *words, int n, int *parent) {
     int i;
     if (parent[n] > 0)
         printSolution(words, parent[n], parent);
+
     for (i = parent[n]; i < n; i++) {
         printf("%s", words[i].str);
         if (i < n-1)

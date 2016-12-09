@@ -128,7 +128,7 @@ gdb:
 test:
 ifdef case
 	@$(BLD_DIR)/$(OUT) < $(I_FILE) | tee $(STDOUT_LOG)
-	@$(call diff,$(O_FILE),$(STDOUT_LOG))
+	@$(call diff,$(STDOUT_LOG),$(O_FILE))
 else
 	@$(error No test case given)
 endif
