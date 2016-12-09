@@ -2,7 +2,7 @@
 #include <limits.h>
 #include <stdio.h>
 
-#define INF (INT_MAX >> 1)
+#define INF 10000
 
 typedef struct Word {
     char *str;
